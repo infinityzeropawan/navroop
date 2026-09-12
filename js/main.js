@@ -5,21 +5,11 @@
 // ═══ PRELOADER ═══
 (function () {
   window.addEventListener('load', () => {
-    const vid = document.querySelector('.ld-video');
-    let done = false;
-    const hideLoader = () => {
-      if (done) return;
-      done = true;
-      const loader = document.getElementById('loader');
-      if (loader) loader.classList.add('out');
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('out');
       prepareHeroWords();
       initHero();
-    };
-
-    if (vid) {
-      vid.addEventListener('ended', hideLoader);
-    }
-    setTimeout(hideLoader, 3400);
+    }, 2400);
   });
 })();
 
