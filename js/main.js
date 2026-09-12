@@ -5,10 +5,14 @@
 // ═══ PRELOADER ═══
 (function () {
   window.addEventListener('load', () => {
-    const delay = window.matchMedia('(max-width: 768px)').matches ? 1200 : 2400;
+    const delay = window.matchMedia('(max-width: 768px)').matches ? 1000 : 1800;
 
     setTimeout(() => {
-      document.getElementById('loader').classList.add('out');
+      const loader = document.getElementById('loader');
+      if (loader) {
+        loader.classList.add('out');
+        setTimeout(() => { loader.style.display = 'none'; }, 800);
+      }
       prepareHeroWords();
       initHero();
     }, delay);
