@@ -47,28 +47,43 @@ img { display: block; width: 100%; object-fit: cover; }
 }
 #loader.out { opacity: 0; visibility: hidden; pointer-events: none; }
 
-.ld-svg { width: 110px; height: 130px; filter: drop-shadow(0 0 12px rgba(26,159,168,0.3)); }
-.ld-svg path { fill: rgba(26,159,168,0); stroke: url(#lg); stroke-linecap: round; stroke-linejoin: round; transition: fill 0.8s ease; }
-.ld-p1 { stroke-width: 2.5; stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw 1.8s cubic-bezier(.4,0,.2,1) 0.2s forwards, logoFill 0.8s ease 1.6s forwards; }
-.ld-p2 { stroke-width: 1.8; stroke-dasharray: 400; stroke-dashoffset: 400; animation: draw 1.6s cubic-bezier(.4,0,.2,1) 0.6s forwards; }
-.ld-p3 { stroke-width: 1.8; stroke-dasharray: 400; stroke-dashoffset: 400; animation: draw 1.4s cubic-bezier(.4,0,.2,1) 0.9s forwards; }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-@keyframes logoFill { to { fill: rgba(201, 153, 61, 0.18); } }
-
-.ld-brand {
-  font-family: var(--fd); font-size: 30px; letter-spacing: 2px;
-  color: var(--wh); opacity: 0; margin-top: 22px;
-  animation: fup 0.6s ease 1.8s forwards;
+.ld-official-logo {
+  height: 90px;
+  width: auto;
+  max-width: min(85vw, 320px);
+  object-fit: contain;
+  opacity: 0;
+  transform: scale(0.85) translateY(12px);
+  animation: officialLogoAnim 1.4s cubic-bezier(.16,1,.3,1) 0.2s forwards;
 }
+
+@keyframes officialLogoAnim {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(12px);
+    filter: drop-shadow(0 0 0px rgba(26,159,168,0));
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.04) translateY(0);
+    filter: drop-shadow(0 12px 35px rgba(26,159,168,0.5)) drop-shadow(0 0 20px rgba(201,153,61,0.4));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: drop-shadow(0 10px 30px rgba(201,153,61,0.35));
+  }
+}
+
 .ld-sub {
   font-family: var(--fm); font-size: 9px; letter-spacing: 4px;
-  text-transform: uppercase; color: var(--gd); opacity: 0; margin-top: 6px;
-  animation: fup 0.6s ease 2s forwards;
+  text-transform: uppercase; color: var(--gd); opacity: 0; margin-top: 14px;
+  animation: fup 0.6s ease 1.2s forwards;
 }
 .ld-bar {
   position: absolute; bottom: 0; left: 0; height: 3px; width: 0;
   background: linear-gradient(90deg, var(--tl), var(--gd));
-  animation: bar 2.4s ease 0.1s forwards;
+  animation: bar 1.8s ease 0.1s forwards;
 }
 @keyframes bar { to { width: 100%; } }
 @keyframes fup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -102,8 +117,18 @@ img { display: block; width: 100%; object-fit: cover; }
 }
 .nav-in { display: flex; align-items: center; justify-content: space-between; }
 .brand { display: flex; align-items: center; gap: 12px; }
-.brand-logo { width: 42px; height: 42px; flex-shrink: 0; transition: transform 0.4s ease, filter 0.4s ease; }
-.brand:hover .brand-logo { transform: scale(1.08) rotate(3deg); filter: drop-shadow(0 0 8px rgba(26,159,168,0.6)); }
+.brand-official-logo {
+  height: 48px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  transition: transform 0.35s cubic-bezier(.2,.8,.2,1), filter 0.35s ease;
+}
+.brand:hover .brand-official-logo {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 16px rgba(26,159,168,0.6));
+}
 .brand-t { display: flex; flex-direction: column; }
 .brand-n { font-family: var(--fd); font-size: 26px; font-weight: 600; color: var(--wh); line-height: 1; letter-spacing: -0.5px; }
 .brand-s { font-family: var(--fm); font-size: 8px; letter-spacing: 3px; color: var(--gdl); font-weight: 600; text-transform: uppercase; margin-top: 4px; }
