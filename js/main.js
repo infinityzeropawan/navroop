@@ -5,7 +5,7 @@
 // ═══ PRELOADER ═══
 (function () {
   window.addEventListener('load', () => {
-    const delay = window.matchMedia('(max-width: 768px)').matches ? 1000 : 1800;
+    const delay = window.matchMedia('(max-width: 768px)').matches ? 2000 : 2400;
 
     setTimeout(() => {
       const loader = document.getElementById('loader');
