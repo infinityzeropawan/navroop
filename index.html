@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NavRoop | Interior &amp; Signage — Crafting Extraordinary Spaces</title>
+  <meta name="description" content="NavRoop transforms rooms into extraordinary experiences through wall panels, blinds, premium finishes, custom wallpapers, and thoughtfully designed interiors in Haryana &amp; Delhi NCR.">
+  <meta name="keywords" content="interior design, wall panels, blinds, wallpaper, signage, NavRoop, Haryana, Delhi NCR">
+  <meta property="og:title" content="NavRoop | Interior &amp; Signage">
+  <meta property="og:description" content="Spaces that feel extraordinary. NavRoop Interior &amp; Signage.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#070d1a">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ═══ PRELOADER ═══ -->
+<div id="loader" aria-hidden="true">
+  <svg class="ld-svg" viewBox="0 0 110 130">
+    <defs>
+      <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#1a9fa8"/>
+        <stop offset="50%" stop-color="#1f82c8"/>
+        <stop offset="100%" stop-color="#c9993d"/>
+      </linearGradient>
+    </defs>
+    <path class="ld-p1" d="M55 8 C35 8 12 28 16 60 C20 88 44 105 55 125 C66 105 90 88 94 60 C98 28 75 8 55 8 Z"/>
+    <path class="ld-p2" d="M22 54 C10 40 4 56 20 72 C30 82 44 79 55 125"/>
+    <path class="ld-p3" d="M88 54 C100 40 106 56 90 72 C80 82 66 79 55 125"/>
+  </svg>
+  <div class="ld-brand">NavRoop</div>
+  <div class="ld-sub">Interior &amp; Signage</div>
+  <div class="ld-bar"></div>
+</div>
+
+<!-- ═══ CURSOR ═══ -->
+<div class="c-dot" aria-hidden="true"></div>
+<div class="c-ring" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+
+<!-- ═══ WHATSAPP ═══ -->
+<a class="wa" href="https://wa.me/917015474102" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Media viewer">
+  <div class="lb-box">
+    <button class="lb-close" id="lbClose" aria-label="Close">&#215;</button>
+    <button class="lb-nav p" id="lbPrev" aria-label="Previous">&#8249;</button>
+    <img id="lbImg" src="" alt="NavRoop Interior Work" style="display:none">
+    <video id="lbVid" controls muted style="display:none; max-width:88vw; max-height:85vh; border-radius:8px;"></video>
+    <button class="lb-nav n" id="lbNext" aria-label="Next">&#8250;</button>
+    <div class="lb-cap" id="lbCap"></div>
+  </div>
+</div>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="container nav-in">
+    <a href="#" class="brand" aria-label="NavRoop Home">
+      <svg class="brand-logo" viewBox="0 0 80 90" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="blg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1a9fa8"/>
+            <stop offset="55%" stop-color="#1f82c8"/>
+            <stop offset="100%" stop-color="#c9993d"/>
+          </linearGradient>
+        </defs>
+        <path d="M40 5 C26 5 8 22 12 50 C16 72 36 84 40 90 C44 84 64 72 68 50 C72 22 54 5 40 5 Z" fill="url(#blg)" opacity=".88"/>
+        <path d="M18 42 C9 32 4 46 16 58 C24 66 34 63 40 90" stroke="url(#blg)" stroke-width="2" fill="none" opacity=".6"/>
+        <path d="M62 42 C71 32 76 46 64 58 C56 66 46 63 40 90" stroke="url(#blg)" stroke-width="2" fill="none" opacity=".6"/>
+      </svg>
+      <div class="brand-t">
+        <span class="brand-n">NavRoop</span>
+        <span class="brand-s">Interior &amp; Signage</span>
+      </div>
+    </a>
+    <ul class="nav-ul">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact" class="nav-cta">Start Your Project</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home" aria-label="Hero">
+  <div class="h-bg" aria-hidden="true"></div>
+  <div class="h-ov" aria-hidden="true"></div>
+  <div class="h-blobs" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+  <div class="container h-in">
+    <div class="h-left">
+      <div class="eyebrow">Interior Spaces With Identity</div>
+      <h1 class="h-title">
+        <div class="word">Spaces&nbsp;</div>
+        <div class="word">That</div><br>
+        <div class="word">Feel</div><br>
+        <div class="word"><em>Extraordinary.</em></div>
+      </h1>
+      <p class="h-desc">NavRoop transforms everyday rooms into meaningful experiences through refined wall decor, elegant blinds, premium finishes, custom wallpapers, and thoughtfully designed interiors.</p>
+      <div class="h-acts">
+        <a href="#contact" class="btn btn-p" id="heroConsult">Book a Consultation &rarr;</a>
+        <a href="#gallery" class="btn btn-o" id="heroGallery">View Our Work</a>
+      </div>
+    </div>
+    <div class="h-chips" aria-hidden="true">
+      <div class="chip-ring">
+        <div class="chip t">WPC Louvers</div>
+        <div class="chip">Marble Sheet</div>
+        <div class="chip g">Mosaic Tiles</div>
+        <div class="chip">Glass Films</div>
+        <div class="chip t">Fluted Panels</div>
+        <div class="chip">Zebra Blinds</div>
+        <div class="chip g">Wallpaper</div>
+        <div class="chip-ctr">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=400&q=85" alt="NavRoop Interior Design">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-i" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="about" id="about" aria-labelledby="about-title">
+  <div class="container ab-grid">
+    <div class="rv">
+      <div class="s-ey">Our Story</div>
+      <h2 id="about-title" class="s-ti">Crafted From<br>A Passion For Space.</h2>
+      <p class="s-cp">NavRoop Interior &amp; Signage was born from a belief that every room deserves intentional design. We bring expertise in wall coverings, luxury panels, decorative films, blinds, and signage to create spaces that feel uniquely yours — for homes, offices, and commercial environments across Haryana and Delhi NCR.</p>
+      <p class="s-cp" style="margin-top:14px">From concept to installation, we handle every detail with precision and care, ensuring that your space not only looks beautiful but functions perfectly for years to come.</p>
+    </div>
+    <div class="stats rv d2">
+      <div class="stat">
+        <div class="stat-n" data-target="250" data-suf="+">0+</div>
+        <div class="stat-l">Projects completed across Haryana &amp; Delhi NCR</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" data-target="8" data-suf="+">0+</div>
+        <div class="stat-l">Years of crafting extraordinary interior spaces</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" data-target="15" data-suf="+">0+</div>
+        <div class="stat-l">Premium material categories &amp; finishes</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" data-target="100" data-suf="%">0%</div>
+        <div class="stat-l">Client satisfaction — we don't stop until you love it</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section class="svcs" id="services" aria-labelledby="services-title">
+  <div class="container">
+    <div class="svcs-hd rv">
+      <div>
+        <div class="s-ey lt">What We Do</div>
+        <h2 id="services-title" class="s-ti wh">Our Signature<br>Services.</h2>
+      </div>
+      <p class="s-cp wh" style="max-width:340px">From single-room transformations to complete commercial fit-outs — every service is tailored to your vision.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc-card rv d1">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=800&q=85" alt="Wall Panels"></div>
+        <div class="svc-ov"></div>
+        <div class="svc-body">
+          <div class="svc-num">01</div>
+          <h3>Wall Panels &amp; Decor</h3>
+          <p>WPC louvers, fluted panels, PVC wall art, 3D wall panels, and custom accent walls that redefine every room.</p>
+        </div>
+      </article>
+      <article class="svc-card rv d2">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1629079447777-1e605162dc8d?auto=format&fit=crop&w=800&q=85" alt="Wall Coverings"></div>
+        <div class="svc-ov"></div>
+        <div class="svc-body">
+          <div class="svc-num">02</div>
+          <h3>Wall Coverings</h3>
+          <p>Premium wallpapers, fabric textures, stone veneers, and specialty coatings for every aesthetic and budget.</p>
+        </div>
+      </article>
+      <article class="svc-card rv d3">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=800&q=85" alt="Finishes & Trims"></div>
+        <div class="svc-ov"></div>
+        <div class="svc-body">
+          <div class="svc-num">03</div>
+          <h3>Finishes &amp; Trims</h3>
+          <p>Marble sheets, mosaic tiles, PVC marble, decorative borders, and precision trims that complete your space.</p>
+        </div>
+      </article>
+      <article class="svc-card rv d1">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=85" alt="Blinds & Curtains"></div>
+        <div class="svc-ov"></div>
+        <div class="svc-body">
+          <div class="svc-num">04</div>
+          <h3>Blinds &amp; Curtains</h3>
+          <p>Zebra blinds, roller blinds, Roman shades, motorized options, and full curtain solutions with custom fabrics.</p>
+        </div>
+      </article>
+      <article class="svc-card rv d2">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1562438668-bcf0ca6578f0?auto=format&fit=crop&w=800&q=85" alt="Glass Films"></div>
+        <div class="svc-ov"></div>
+        <div class="svc-body">
+          <div class="svc-num">05</div>
+          <h3>Glass Films &amp; Signage</h3>
+          <p>Frosted, tinted &amp; patterned glass films — plus professional interior &amp; exterior signage for every brand.</p>
+        </div>
+      </article>
+      <article class="svc-card rv d3">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=85" alt="Full Interior Design"></div>
+        <div class="svc-ov"></div>
+        <div class="svc-body">
+          <div class="svc-num">06</div>
+          <h3>Full Interior Design</h3>
+          <p>End-to-end design for residential &amp; commercial spaces — from mood boards and concepts to final installation.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section class="gal-sect" id="gallery" aria-labelledby="gallery-title">
+  <div class="gal-sticky">
+    <div class="gal-hd rv">
+      <div>
+        <div class="s-ey lt">Our Portfolio</div>
+        <h2 id="gallery-title" class="s-ti wh">Work that speaks<br>for itself.</h2>
+      </div>
+      <span class="gal-hint">← Drag to Explore →</span>
+    </div>
+    <div class="gal-wrap">
+      <div class="gal-track" id="galTrack" role="list" style="cursor:grab"></div>
+    </div>
+    <p class="gal-empty" id="galEmpty" style="display:none">
+      Upload your work from the <a href="admin.html">Admin Panel</a> to showcase it here.<br>
+      <small style="font-size:14px;color:rgba(255,255,255,.3)">No media uploaded yet</small>
+    </p>
+  </div>
+</section>
+
+<!-- ═══ BEFORE/AFTER ═══ -->
+<section class="ba-sect" aria-labelledby="ba-title">
+  <div class="container ba-grid">
+    <div class="rv">
+      <div class="s-ey">The Transformation</div>
+      <h2 id="ba-title" class="s-ti">Before &amp; After<br>The NavRoop Touch.</h2>
+      <p class="s-cp" style="margin-top:20px">See the dramatic impact our interior solutions create. Drag the slider to reveal the transformation — from plain walls to statement spaces.</p>
+      <a href="#contact" class="btn btn-p" style="margin-top:34px;display:inline-flex" id="ba-cta">Transform My Space</a>
+    </div>
+    <div class="rv d2">
+      <div class="ba-wrap" role="img" aria-label="Before and after interior transformation slider">
+        <div class="ba-b">
+          <div class="ba-lbl">Before</div>
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=85" alt="Before — plain room">
+        </div>
+        <div class="ba-a">
+          <div class="ba-lbl">After</div>
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=85" alt="After — NavRoop transformation">
+        </div>
+        <div class="ba-div" aria-hidden="true"></div>
+        <div class="ba-h" aria-hidden="true">&#8596;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section class="proc" id="process" aria-labelledby="process-title">
+  <div class="container">
+    <div class="rv" style="text-align:center;margin-bottom:0">
+      <div class="s-ey lt" style="justify-content:center">How We Work</div>
+      <h2 id="process-title" class="s-ti wh" style="text-align:center">From Idea to<br>Extraordinary Reality.</h2>
+    </div>
+    <div class="proc-grid">
+      <div class="p-step rv d1">
+        <div class="p-big">01</div>
+        <div class="p-ico">&#128172;</div>
+        <h3>Consultation</h3>
+        <p>We listen to your vision, understand your space, and assess your requirements — no commitment needed for the initial meeting.</p>
+      </div>
+      <div class="p-step rv d2">
+        <div class="p-big">02</div>
+        <div class="p-ico">&#128396;</div>
+        <h3>Design &amp; Selection</h3>
+        <p>Our team presents curated material samples, mood boards, and layout concepts tailored to your taste and budget.</p>
+      </div>
+      <div class="p-step rv d3">
+        <div class="p-big">03</div>
+        <div class="p-ico">&#127959;</div>
+        <h3>Professional Install</h3>
+        <p>Our skilled craftsmen handle every installation with meticulous precision, protecting your existing finishes and furnishings.</p>
+      </div>
+      <div class="p-step rv d4">
+        <div class="p-big">04</div>
+        <div class="p-ico">&#10003;</div>
+        <h3>Reveal &amp; Aftercare</h3>
+        <p>We walk you through your transformed space and provide full aftercare guidance to keep it looking perfect for years.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="ct-sect" id="contact" aria-labelledby="contact-title">
+  <div class="container ct-grid">
+    <div class="rv">
+      <div class="s-ey lt">Let's Talk</div>
+      <h2 id="contact-title" class="s-ti wh">Ready to Transform<br>Your Space?</h2>
+      <p class="s-cp wh" style="margin-top:18px">Whether it's a single feature wall or a complete interior project, we're here to make it extraordinary. Reach out — we'd love to hear about your vision.</p>
+      <div class="ct-cta">
+        <a href="https://wa.me/917015474102" class="btn btn-p" target="_blank" rel="noopener" id="ctWhatsapp">Chat on WhatsApp</a>
+        <a href="tel:+917015474102" class="btn btn-o" id="ctCall">Call Now</a>
+      </div>
+    </div>
+    <div class="ct-card rv d2">
+      <h3>Contact Information</h3>
+      <div class="ct-ln">
+        <small>Phone</small>
+        <a href="tel:+917015474102">+91 70154 74102</a>
+      </div>
+      <div class="ct-ln">
+        <small>WhatsApp</small>
+        <a href="https://wa.me/917015474102" target="_blank" rel="noopener">+91 70154 74102</a>
+      </div>
+      <div class="ct-ln">
+        <small>Service Areas</small>
+        <span>Haryana &amp; Delhi NCR</span>
+      </div>
+      <div class="ct-ln">
+        <small>Specialisations</small>
+        <span>Wall Panels, Blinds, Wallpaper, Signage, Tiles &amp; Full Interiors</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container ft-in">
+    <span class="ft-c">&copy; 2024 NavRoop Interior &amp; Signage. All rights reserved.</span>
+    <a href="admin.html" class="ft-a">Admin Panel</a>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NavRoop Admin Panel</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Space+Mono&display=swap" rel="stylesheet">
+
+  <!-- Admin Stylesheet -->
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <svg class="login-logo" viewBox="0 0 80 90" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="llg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#1a9fa8"/>
+          <stop offset="55%" stop-color="#1f82c8"/>
+          <stop offset="100%" stop-color="#c9993d"/>
+        </linearGradient>
+      </defs>
+      <path d="M40 5 C26 5 8 22 12 50 C16 72 36 84 40 90 C44 84 64 72 68 50 C72 22 54 5 40 5 Z" fill="url(#llg)" opacity=".9"/>
+      <path d="M18 42 C9 32 4 46 16 58 C24 66 34 63 40 90" stroke="url(#llg)" stroke-width="2" fill="none" opacity=".65"/>
+    </svg>
+    <h2>NavRoop Admin</h2>
+    <p>Interior &amp; Signage Panel</p>
+    <input type="password" id="passInput" class="inp" placeholder="Enter admin password" autocomplete="current-password">
+    <button class="login-btn" id="loginBtn">Access Panel</button>
+    <div class="login-err" id="loginErr">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+
+<!-- ═══ CONFIRM DIALOG ═══ -->
+<div class="confirm-bg" id="confirmBg" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="confirm-box">
+    <h3 id="confirmTitle">&#128465; Delete Media?</h3>
+    <p>This will permanently remove the item from your gallery. This action cannot be undone.</p>
+    <div class="confirm-actions">
+      <button class="btn-sm btn-ghost" id="confirmNo">Cancel</button>
+      <button class="btn-sm btn-danger" id="confirmYes">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ EDIT MODAL ═══ -->
+<div class="modal-bg" id="editModal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+  <div class="modal">
+    <button class="modal-close" id="editClose" aria-label="Close">&#215;</button>
+    <h3 id="editModalTitle">&#9998; Edit Media</h3>
+    <div class="form-group" style="margin-bottom:16px">
+      <label for="editTitle">Title</label>
+      <input type="text" id="editTitle" placeholder="e.g. Modern Living Room">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="editCat">Category</label>
+        <select id="editCat">
+          <option value="Wall Panels">Wall Panels &amp; Decor</option>
+          <option value="Wall Coverings">Wall Coverings</option>
+          <option value="Finishes & Trims">Finishes &amp; Trims</option>
+          <option value="Blinds & Curtains">Blinds &amp; Curtains</option>
+          <option value="Mosaic Tiles">Mosaic Tiles</option>
+          <option value="Glass Films">Glass Films</option>
+          <option value="Showcase">Showcase</option>
+          <option value="Interior">Interior</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="editOrder">Display Order</label>
+        <input type="number" id="editOrder" placeholder="0 = first" min="0">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="editDesc">Description</label>
+      <textarea id="editDesc" rows="3" placeholder="Brief description..."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-sm btn-ghost" id="editCancel">Cancel</button>
+      <button class="btn-sm btn-teal" id="editSave">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ APP ═══ -->
+<div id="app" class="hide">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" role="navigation" aria-label="Admin navigation">
+    <div class="sb-brand">
+      <svg class="sb-logo" viewBox="0 0 80 90" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="slg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#1a9fa8"/>
+            <stop offset="100%" stop-color="#c9993d"/>
+          </linearGradient>
+        </defs>
+        <path d="M40 5 C26 5 8 22 12 50 C16 72 36 84 40 90 C44 84 64 72 68 50 C72 22 54 5 40 5 Z" fill="url(#slg)" opacity=".9"/>
+      </svg>
+      <div>
+        <div class="sb-name">NavRoop</div>
+        <div class="sb-sub">Admin Panel</div>
+      </div>
+    </div>
+
+    <ul class="sb-nav">
+      <li>
+        <a class="active" data-section="upload" onclick="showSection('upload')" role="button" tabindex="0">
+          <span class="icon">&#8679;</span> Upload Media
+        </a>
+      </li>
+      <li>
+        <a data-section="library" onclick="showSection('library')" role="button" tabindex="0">
+          <span class="icon">&#9783;</span> Media Library
+        </a>
+      </li>
+      <li>
+        <a href="index.html" target="_blank" rel="noopener">
+          <span class="icon">&#128065;</span> View Website
+        </a>
+      </li>
+    </ul>
+
+    <div class="sb-stats">
+      <div class="sb-stat"><span>Total Media</span><span id="sbTotal">0</span></div>
+      <div class="sb-stat"><span>Images</span><span id="sbImgs">0</span></div>
+      <div class="sb-stat"><span>Videos</span><span id="sbVids">0</span></div>
+    </div>
+
+    <div class="sb-logout" onclick="logout()" role="button" tabindex="0">&#10548; Logout</div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- ── UPLOAD SECTION ── -->
+    <div id="sec-upload" class="section active">
+      <div class="topbar">
+        <div>
+          <div class="page-title">&#8679; Upload Media</div>
+          <div class="page-sub">Add images &amp; videos to your portfolio gallery</div>
+        </div>
+        <div class="top-actions">
+          <button class="btn-sm btn-gold" id="uploadAllBtn" style="display:none" onclick="uploadAll()">&#10003; Save All to Gallery</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row" id="statsRow">
+        <div class="stat-card">
+          <div class="stat-icon">&#128444;</div>
+          <div class="stat-num" id="sc-total">0</div>
+          <div class="stat-label">Total Media Items</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">&#128247;</div>
+          <div class="stat-num" id="sc-img">0</div>
+          <div class="stat-label">Images Uploaded</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">&#127909;</div>
+          <div class="stat-num" id="sc-vid">0</div>
+          <div class="stat-label">Videos Uploaded</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">&#127760;</div>
+          <div class="stat-num" id="sc-size">0 MB</div>
+          <div class="stat-label">Total Storage Used</div>
+        </div>
+      </div>
+
+      <!-- Drop Zone -->
+      <div class="upload-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload media files">
+        <input type="file" id="fileInput" multiple accept="image/*,video/*" aria-label="Select files to upload">
+        <span class="uz-icon" aria-hidden="true">&#128247;</span>
+        <div class="uz-title">Drop files here or click to browse</div>
+        <div class="uz-sub">
+          Upload photos and videos of your interior work.<br>
+          All formats supported — JPG, PNG, WEBP, GIF, MP4, MOV, AVI, WEBM
+        </div>
+        <div class="uz-types" aria-label="Supported formats">
+          <span class="uz-tag">JPG</span>
+          <span class="uz-tag">PNG</span>
+          <span class="uz-tag">WEBP</span>
+          <span class="uz-tag">GIF</span>
+          <span class="uz-tag">SVG</span>
+          <span class="uz-tag">MP4</span>
+          <span class="uz-tag">MOV</span>
+          <span class="uz-tag">WEBM</span>
+          <span class="uz-tag">AVI</span>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-wrap" id="progressWrap" role="progressbar" aria-label="Upload progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <!-- Previews -->
+      <div id="previewGrid" class="preview-grid" aria-label="Selected files preview"></div>
+
+      <!-- Metadata Form -->
+      <div class="upload-form" id="uploadForm">
+        <h3 style="font-size:16px;margin-bottom:20px;font-weight:600">
+          &#128394; Media Details
+          <span style="font-size:13px;color:rgba(255,255,255,.4);font-weight:400" id="fileCountLabel"></span>
+        </h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="newCat">Category</label>
+            <select id="newCat">
+              <option value="Interior">Interior</option>
+              <option value="Wall Panels">Wall Panels &amp; Decor</option>
+              <option value="Wall Coverings">Wall Coverings</option>
+              <option value="Finishes & Trims">Finishes &amp; Trims</option>
+              <option value="Blinds & Curtains">Blinds &amp; Curtains</option>
+              <option value="Mosaic Tiles">Mosaic Tiles</option>
+              <option value="Glass Films">Glass Films</option>
+              <option value="Showcase">Showcase</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="newTitle">Title Prefix (optional)</label>
+            <input type="text" id="newTitle" placeholder="e.g. Living Room Design">
+          </div>
+        </div>
+        <button
+          class="btn-sm btn-gold"
+          style="width:100%;padding:14px;font-size:14px;justify-content:center"
+          onclick="uploadAll()"
+          id="saveToGalleryBtn">
+          &#10003; Save to Gallery
+        </button>
+      </div>
+    </div>
+
+    <!-- ── LIBRARY SECTION ── -->
+    <div id="sec-library" class="section">
+      <div class="topbar">
+        <div>
+          <div class="page-title">&#9783; Media Library</div>
+          <div class="page-sub">Manage your uploaded photos and videos</div>
+        </div>
+        <div class="top-actions">
+          <button class="btn-sm btn-danger" id="clearAllBtn" onclick="deleteAll()">&#128465; Clear All</button>
+        </div>
+      </div>
+
+      <div class="lib-header">
+        <div class="lib-filters">
+          <button class="filter-btn active" data-filter="all" onclick="filterMedia('all',this)">All</button>
+          <button class="filter-btn" data-filter="image" onclick="filterMedia('image',this)">Images</button>
+          <button class="filter-btn" data-filter="video" onclick="filterMedia('video',this)">Videos</button>
+          <button class="filter-btn" data-filter="Wall Panels" onclick="filterMedia('Wall Panels',this)">Wall Panels</button>
+          <button class="filter-btn" data-filter="Blinds & Curtains" onclick="filterMedia('Blinds & Curtains',this)">Blinds</button>
+        </div>
+        <div class="lib-search">
+          <span aria-hidden="true">&#128269;</span>
+          <input type="search" id="searchInput" placeholder="Search media..." oninput="searchMedia(this.value)" aria-label="Search media library">
+        </div>
+      </div>
+
+      <div class="media-grid" id="mediaGrid" aria-label="Media library">
+        <div class="empty-state" style="grid-column:1/-1">
+          <span class="big-icon" aria-hidden="true">&#128444;</span>
+          <h3>No media yet</h3>
+          <p>Upload photos and videos from the Upload tab to see them here.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Admin Script -->
+<script src="js/admin.js"></script>
+</body>
+</html>

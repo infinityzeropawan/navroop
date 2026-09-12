@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp / old files
+websit
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
