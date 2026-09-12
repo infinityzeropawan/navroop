@@ -320,9 +320,31 @@ function initHero() {
   });
 })();
 
-// ═══ LOAD GALLERY FROM INDEXEDDB ═══
+// ═══ LOAD GALLERY FROM ASSETS + INDEXEDDB ═══
 (async function () {
   const IDB_NAME = 'NavRoop_Media', IDB_VER = 2, IDB_STORE = 'media';
+
+  const DEFAULT_ITEMS = [
+    { src: 'assets/gallery/asset1_tl.jpg', title: 'Luxury Living Room Panel', category: 'Wall Panels', type: 'image' },
+    { src: 'assets/gallery/asset1_tr.jpg', title: 'Modern Fluted Louver Accent', category: 'Louvers', type: 'image' },
+    { src: 'assets/gallery/asset1_bl.jpg', title: 'Executive Office Feature Wall', category: 'PVC Wall Art', type: 'image' },
+    { src: 'assets/gallery/asset1_br.jpg', title: 'Custom Interior Wall Texture', category: 'Wall Coverings', type: 'image' },
+    { src: 'assets/gallery/asset2_tl.jpg', title: 'Minimalist Bedroom Headboard Panel', category: 'Bedrooms', type: 'image' },
+    { src: 'assets/gallery/asset2_tr.jpg', title: 'Gold Trimmed Accent Wall', category: 'Interior Design', type: 'image' },
+    { src: 'assets/gallery/asset2_bl.jpg', title: 'High-Gloss Marble Texture Sheet', category: 'Marble Sheets', type: 'image' },
+    { src: 'assets/gallery/asset2_br.jpg', title: 'Ambient LED Backlit Panel', category: 'Lighting & Panels', type: 'image' },
+    { src: 'assets/gallery/asset3_tl.jpg', title: 'Contemporary Dining Wall Design', category: 'Dining Rooms', type: 'image' },
+    { src: 'assets/gallery/asset3_tr.jpg', title: '3D Geometric Wall Art', category: '3D Panels', type: 'image' },
+    { src: 'assets/gallery/asset3_bl.jpg', title: 'Wood Finish Acoustic Louvers', category: 'Wood Finish', type: 'image' },
+    { src: 'assets/gallery/asset3_br.jpg', title: 'Luxury Villa Foyer Design', category: 'Full Interior', type: 'image' },
+    { src: 'assets/gallery/asset4_tl.jpg', title: 'Architectural Fluted Wall Column', category: 'Architectural', type: 'image' },
+    { src: 'assets/gallery/asset4_tr.jpg', title: 'Premium Motorized Zebra Blinds', category: 'Blinds', type: 'image' },
+    { src: 'assets/gallery/asset4_bl.jpg', title: 'Commercial Reception Signage & Wall', category: 'Signage & Interior', type: 'image' },
+    { src: 'assets/gallery/asset4_br.jpg', title: 'Custom PVC Marble TV Unit', category: 'Living Rooms', type: 'image' },
+    { src: 'assets/gallery/img_3996.jpg', title: 'NavRoop Signature Interior Showcase', category: 'Featured Project', type: 'image' },
+    { src: 'assets/gallery/wa_1.jpg', title: 'Bespoke Wall Panel Craftsmanship', category: 'Craftsmanship', type: 'image' },
+    { src: 'assets/gallery/wa_2.jpg', title: 'Elegantly Finished Interior Suite', category: 'Full Interior', type: 'image' }
+  ];
 
   function openDB() {
     return new Promise((res, rej) => {
@@ -336,40 +358,45 @@ function initHero() {
     });
   }
 
-  let items = [];
+  let dbItems = [];
   try {
     const db = await openDB();
-    items = await new Promise(res => {
+    dbItems = await new Promise(res => {
       const req = db.transaction(IDB_STORE, 'readonly').objectStore(IDB_STORE).getAll();
       req.onsuccess = () => res(req.result || []);
       req.onerror = () => res([]);
     });
-  } catch { items = []; }
+  } catch { dbItems = []; }
 
   const track = document.getElementById('galTrack');
   const galEmpty = document.getElementById('galEmpty');
   if (!track) return;
 
-  items.sort((a, b) => (a.order || 0) - (b.order || 0));
+  dbItems.sort((a, b) => (a.order || 0) - (b.order || 0));
 
-  if (!items.length) { if (galEmpty) galEmpty.style.display = 'block'; return; }
+  let finalItems = [...DEFAULT_ITEMS];
+  if (dbItems.length) {
+    dbItems.forEach(item => {
+      const url = URL.createObjectURL(item.blob);
+      finalItems.unshift({ src: url, title: item.title || 'NavRoop Interior', category: item.category || 'Interior', type: item.type });
+    });
+  }
+
   if (galEmpty) galEmpty.style.display = 'none';
+  track.innerHTML = '';
 
-  const lbItems = [];
-  items.forEach((item, idx) => {
-    const url = URL.createObjectURL(item.blob);
-    lbItems.push({ src: url, title: item.title || 'NavRoop Interior', category: item.category || 'Interior', type: item.type });
+  finalItems.forEach((item, idx) => {
     const div = document.createElement('div');
     div.className = 'gal-item';
     div.innerHTML = `
       ${item.type === 'video'
-        ? `<video src="${url}" muted loop preload="metadata"></video>`
-        : `<img src="${url}" alt="${item.title || 'NavRoop Interior'}" loading="lazy">`}
+        ? `<video src="${item.src}" muted loop playsinline preload="metadata"></video>`
+        : `<img src="${item.src}" alt="${item.title}" loading="lazy">`}
       <div class="gal-ov">
-        <div class="gal-ov-t">${item.title || 'NavRoop Interior'}</div>
-        <div class="gal-ov-c">${item.category || 'Interior'}</div>
+        <div class="gal-ov-t">${item.title}</div>
+        <div class="gal-ov-c">${item.category}</div>
       </div>`;
-    div.addEventListener('click', () => window.openLightbox(idx, lbItems));
+    div.addEventListener('click', () => window.openLightbox(idx, finalItems));
     track.appendChild(div);
   });
 })();
