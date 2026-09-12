@@ -5,11 +5,13 @@
 // ═══ PRELOADER ═══
 (function () {
   window.addEventListener('load', () => {
+    const delay = window.matchMedia('(max-width: 768px)').matches ? 1200 : 2400;
+
     setTimeout(() => {
       document.getElementById('loader').classList.add('out');
       prepareHeroWords();
       initHero();
-    }, 2400);
+    }, delay);
   });
 })();
 
@@ -36,6 +38,9 @@ function initHero() {
   const hamBtn = document.getElementById('hamBtn');
   const mobNav = document.getElementById('mobNav');
   if (!hamBtn || !mobNav) return;
+
+  hamBtn.setAttribute('aria-controls', 'mobNav');
+  hamBtn.setAttribute('aria-expanded', 'false');
 
   function openMenu() {
     hamBtn.classList.add('open');
@@ -111,54 +116,101 @@ function initHero() {
 // ═══ HORIZONTAL GALLERY SCROLL ═══
 (function () {
   const track = document.getElementById('galTrack');
-  if (!track) return;
-  let x = 0, vx = 0, isDragging = false, startX = 0, trackX = 0;
+  if (!track || !track.parentElement) return;
+
+  let x = 0;
+  let isDragging = false;
+  let startX = 0;
+  let trackX = 0;
   let maxX = 0;
+  let autoAnim = null;
+  let autoDir = -1;
 
-  function updateMax() { maxX = -(track.scrollWidth - track.parentElement.clientWidth); }
-  updateMax();
-  window.addEventListener('resize', updateMax);
-
-  // auto-scroll
-  let autoDir = -1, autoAnim = null;
-  function autoScroll() {
-    if (!isDragging) {
-      x += autoDir * 0.6;
-      if (x <= maxX) { x = maxX; autoDir = 1; }
-      if (x >= 0) { x = 0; autoDir = -1; }
-      vx = 0;
-      track.style.transform = 'translateX(' + x + 'px)';
-    }
-    autoAnim = requestAnimationFrame(autoScroll);
+  function updateMax() {
+    maxX = Math.min(0, -(track.scrollWidth - track.parentElement.clientWidth));
+    x = Math.max(maxX, Math.min(0, x));
+    track.style.transform = `translate3d(${x}px, 0, 0)`;
   }
-  autoAnim = requestAnimationFrame(autoScroll);
 
-  // drag
-  track.addEventListener('mousedown', e => {
-    isDragging = true; startX = e.clientX; trackX = x;
-    cancelAnimationFrame(autoAnim);
-    track.style.cursor = 'grabbing';
-  });
-  window.addEventListener('mousemove', e => {
+  function render() {
+    track.style.transform = `translate3d(${x}px, 0, 0)`;
+  }
+
+  function stopAutoScroll() {
+    if (autoAnim) {
+      cancelAnimationFrame(autoAnim);
+      autoAnim = null;
+    }
+  }
+
+  function startAutoScroll() {
+    stopAutoScroll();
+
+    function animate() {
+      if (!isDragging && maxX < 0) {
+        x += autoDir * 0.35;
+
+        if (x <= maxX) {
+          x = maxX;
+          autoDir = 1;
+        }
+
+        if (x >= 0) {
+          x = 0;
+          autoDir = -1;
+        }
+
+        render();
+      }
+
+      autoAnim = requestAnimationFrame(animate);
+    }
+
+    autoAnim = requestAnimationFrame(animate);
+  }
+
+  function getClientX(event) {
+    return event.touches
+      ? event.touches[0].clientX
+      : event.clientX;
+  }
+
+  function beginDrag(event) {
+    isDragging = true;
+    startX = getClientX(event);
+    trackX = x;
+    track.classList.add('dragging');
+    stopAutoScroll();
+  }
+
+  function moveDrag(event) {
     if (!isDragging) return;
-    x = Math.max(maxX, Math.min(0, trackX + (e.clientX - startX)));
-    track.style.transform = 'translateX(' + x + 'px)';
-  });
-  window.addEventListener('mouseup', () => {
+
+    const distance = getClientX(event) - startX;
+    x = Math.max(maxX, Math.min(0, trackX + distance));
+    render();
+  }
+
+  function endDrag() {
     if (!isDragging) return;
+
     isDragging = false;
-    track.style.cursor = 'grab';
-    autoAnim = requestAnimationFrame(autoScroll);
-  });
+    track.classList.remove('dragging');
+    startAutoScroll();
+  }
 
-  // touch
-  track.addEventListener('touchstart', e => { isDragging = true; startX = e.touches[0].clientX; trackX = x; cancelAnimationFrame(autoAnim); }, { passive: true });
-  track.addEventListener('touchmove', e => {
-    if (!isDragging) return;
-    x = Math.max(maxX, Math.min(0, trackX + (e.touches[0].clientX - startX)));
-    track.style.transform = 'translateX(' + x + 'px)';
-  }, { passive: true });
-  track.addEventListener('touchend', () => { isDragging = false; autoAnim = requestAnimationFrame(autoScroll); });
+  updateMax();
+  startAutoScroll();
+
+  window.addEventListener('resize', updateMax, { passive: true });
+
+  track.addEventListener('mousedown', beginDrag);
+  window.addEventListener('mousemove', moveDrag);
+  window.addEventListener('mouseup', endDrag);
+
+  track.addEventListener('touchstart', beginDrag, { passive: true });
+  track.addEventListener('touchmove', moveDrag, { passive: true });
+  track.addEventListener('touchend', endDrag, { passive: true });
 })();
 
 // ═══ VIDEO AUTOPLAY IN GALLERY ═══
@@ -236,29 +288,50 @@ function initHero() {
   const afterEl = document.querySelector('.ba-a');
   const divEl = document.querySelector('.ba-div');
   const handleEl = document.querySelector('.ba-h');
-  if (!wrap) return;
+
+  if (!wrap || !afterEl || !divEl || !handleEl) return;
 
   let dragging = false;
 
   function setPos(pct) {
     pct = Math.max(3, Math.min(97, pct));
-    afterEl.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
-    divEl.style.left = pct + '%';
-    handleEl.style.left = pct + '%';
+
+    afterEl.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    divEl.style.left = `${pct}%`;
+    handleEl.style.left = `${pct}%`;
   }
 
-  function getPos(e) {
-    const r = wrap.getBoundingClientRect();
-    const cx = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
-    return (cx / r.width) * 100;
+  function getPos(event) {
+    const rect = wrap.getBoundingClientRect();
+    const clientX = event.touches
+      ? event.touches[0].clientX
+      : event.clientX;
+
+    return ((clientX - rect.left) / rect.width) * 100;
   }
 
-  wrap.addEventListener('mousedown', e => { dragging = true; setPos(getPos(e)); });
-  wrap.addEventListener('touchstart', e => { dragging = true; setPos(getPos(e)); }, { passive: true });
-  window.addEventListener('mousemove', e => { if (dragging) setPos(getPos(e)); });
-  window.addEventListener('touchmove', e => { if (dragging) setPos(getPos(e)); }, { passive: true });
-  window.addEventListener('mouseup', () => dragging = false);
-  window.addEventListener('touchend', () => dragging = false);
+  function start(event) {
+    dragging = true;
+    setPos(getPos(event));
+  }
+
+  function move(event) {
+    if (!dragging) return;
+    setPos(getPos(event));
+  }
+
+  function stop() {
+    dragging = false;
+  }
+
+  wrap.addEventListener('mousedown', start);
+  window.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', stop);
+
+  wrap.addEventListener('touchstart', start, { passive: true });
+  wrap.addEventListener('touchmove', move, { passive: true });
+  wrap.addEventListener('touchend', stop, { passive: true });
+  wrap.addEventListener('touchcancel', stop, { passive: true });
 
   setPos(50);
 })();
@@ -296,14 +369,22 @@ function initHero() {
 
 // ═══ 3D CARD TILT ═══
 (function () {
+  const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!supportsHover) return;
+
   document.querySelectorAll('.svc-card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - 0.5) * 14;
-      const y = -((e.clientY - r.top) / r.height - 0.5) * 14;
-      card.style.transform = `perspective(800px) rotateX(${y}deg) rotateY(${x}deg) translateZ(6px)`;
+    card.addEventListener('mousemove', event => {
+      const rect = card.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 10;
+      const y = -((event.clientY - rect.top) / rect.height - 0.5) * 10;
+
+      card.style.transform =
+        `perspective(800px) rotateX(${y}deg) rotateY(${x}deg) translateZ(6px)`;
     });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
   });
 })();
 
