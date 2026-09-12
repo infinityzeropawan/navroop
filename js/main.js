@@ -7,16 +7,59 @@
   window.addEventListener('load', () => {
     setTimeout(() => {
       document.getElementById('loader').classList.add('out');
+      prepareHeroWords();
       initHero();
     }, 2600);
   });
 })();
 
+function prepareHeroWords() {
+  // Wraps each .word's content in a .word-inner span so CSS can slide it up
+  document.querySelectorAll('.h-title .word').forEach((word, i) => {
+    const inner = document.createElement('span');
+    inner.className = 'word-inner';
+    inner.style.transitionDelay = (0.04 + i * 0.13) + 's';
+    // Move ALL child nodes (text, em, etc.) inside the inner span
+    while (word.firstChild) inner.appendChild(word.firstChild);
+    word.appendChild(inner);
+  });
+}
+
 function initHero() {
   document.querySelector('.h-title').classList.add('go');
-  setTimeout(() => document.querySelector('.h-desc').classList.add('go'), 200);
-  setTimeout(() => document.querySelector('.h-acts').classList.add('go'), 350);
+  setTimeout(() => document.querySelector('.h-desc')?.classList.add('go'), 350);
+  setTimeout(() => document.querySelector('.h-acts')?.classList.add('go'), 550);
 }
+
+// ═══ HAMBURGER MENU ═══
+(function () {
+  const hamBtn = document.getElementById('hamBtn');
+  const mobNav = document.getElementById('mobNav');
+  if (!hamBtn || !mobNav) return;
+
+  function openMenu() {
+    hamBtn.classList.add('open');
+    mobNav.classList.add('open');
+    document.body.classList.add('nav-open');
+    hamBtn.setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu() {
+    hamBtn.classList.remove('open');
+    mobNav.classList.remove('open');
+    document.body.classList.remove('nav-open');
+    hamBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  hamBtn.addEventListener('click', () => {
+    hamBtn.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  // Close when any link is clicked
+  mobNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+})();
 
 // ═══ CURSOR ═══
 (function () {
